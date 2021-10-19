@@ -63,6 +63,7 @@
             return { ...element, status: 0 };
         });
         $closeAppStatus = 0;
+        currentSelectedNavApp.set(1);
     });
 </script>
 
