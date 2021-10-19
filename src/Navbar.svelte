@@ -69,9 +69,11 @@
         />
         {#each $navbarContent as content, ind}
             {#if content.appWindowStatus}
-                <i
+                <img
+                    src={`/figma/${content.icon}.png`}
+                    alt={content.icon}
                     id={`nav-app-${content.appId}`}
-                    class={"nav-icons bx " + content.icon}
+                    class={"nav-icons"}
                     on:click={(e) => toggleWindow(e)}
                     in:fly={{ y: 1000, duration: 250 }}
                     out:fly={{ y: 1000, duration: 250 }}
@@ -90,6 +92,8 @@
 
     .nav-icons {
         font-size: 32px;
+        height: 35px;
+        width: 35px;
         margin-bottom: 2px;
         cursor: pointer;
         padding: 5px;
