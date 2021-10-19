@@ -8,6 +8,7 @@
 
     function closeWindow() {
         let appId = $currentSelectedNavApp.appId;
+        closeAppStatus.set(0);
         let newNavContent = $navbarContent.map((ele) => {
             if (ele.appId == appId) {
                 return { ...ele, appWindowStatus: 0 };

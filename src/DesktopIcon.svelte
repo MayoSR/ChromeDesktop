@@ -76,7 +76,7 @@
     on:dblclick={(e) => openApplication(e)}
 >
     <div class="icon-container">
-        <i class={`${iconProp} desktop-icon`} />
+        <img src={`/figma/${iconProp}.png`} alt={iconProp} class="img-icon" />
     </div>
     <div class="p-container">
         <p class="icon-name">
@@ -94,11 +94,17 @@
         align-items: center;
         width: 95px;
         color: white;
+        margin-bottom: 10px;
     }
 
     .desktop-icon > *,
     .desktop-icon-selected > * {
         pointer-events: none;
+    }
+
+    .icon-container img {
+        height: 50px;
+        width: 50px;
     }
 
     .desktop-icon-selected {
@@ -109,6 +115,7 @@
         align-items: center;
         width: 95px;
         color: white;
+        margin-bottom: 10px;
     }
 
     .desktop-icon > .icon-container {
@@ -117,7 +124,6 @@
         left: 0;
         right: 0;
         width: 100%;
-        font-size: 36px;
         display: flex;
         justify-content: center;
         height: 60px;
@@ -131,7 +137,6 @@
         left: 0;
         right: 0;
         width: 100%;
-        font-size: 36px;
         display: flex;
         justify-content: center;
         height: 55px;
