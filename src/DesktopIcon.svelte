@@ -1,19 +1,33 @@
 <script>
     import { element } from "svelte/internal";
 
-    import { navbarContent, closeAppStatus } from "./stores.js";
+    import {
+        currentSelectedNavApp,
+        navbarContent,
+        closeAppStatus,
+    } from "./stores.js";
+    export let appId;
+    export let iconProp;
+    export let appName;
 
-    let icon = null;
     let newAppId = null;
     const regex = /bxs-.*/g;
 
     function selectedIcon(e) {
-        icon = e.target.id;
+        $navbarContent = $navbarContent.map((element) => {
+            if (element.appId == e.target.id.split("icon-")[1]) {
+                currentSelectedNavApp.set(element);
+                let newElement = element;
+                newElement.status = 1 - newElement.status;
+                return newElement;
+            }
+            return element;
+        });
         e.stopPropagation();
     }
 
     function openApplication(e) {
-        icon = e.target.id;
+        let icon = e.target.id;
         newAppId = e.target.id.split("icon-")[1];
         e.stopPropagation();
         if ($navbarContent.filter((app) => app.appId == newAppId).length <= 0) {
@@ -45,9 +59,6 @@
     }
 
     document.addEventListener("click", () => {
-        if (icon !== null) {
-            icon = null;
-        }
         $navbarContent = $navbarContent.map((element) => {
             return { ...element, status: 0 };
         });
@@ -56,17 +67,19 @@
 </script>
 
 <div
-    class={icon === "icon-1" ? "desktop-icon-selected" : "desktop-icon"}
-    id="icon-1"
+    class={`icon-${$currentSelectedNavApp.appId}` === `icon-${appId}`
+        ? "desktop-icon-selected"
+        : "desktop-icon"}
+    id={`icon-${appId}`}
     on:click={(e) => selectedIcon(e)}
     on:dblclick={(e) => openApplication(e)}
 >
     <div class="icon-container">
-        <i class="bx bxs-folder desktop-icon" />
+        <i class={`${iconProp} desktop-icon`} />
     </div>
     <div class="p-container">
         <p class="icon-name">
-            Portfolio for Masters degree for Georgia Institute of Technology
+            {appName}
         </p>
     </div>
 </div>
@@ -103,7 +116,7 @@
         left: 0;
         right: 0;
         width: 100%;
-        font-size: 56px;
+        font-size: 36px;
         display: flex;
         justify-content: center;
         height: 60px;
@@ -117,7 +130,7 @@
         left: 0;
         right: 0;
         width: 100%;
-        font-size: 56px;
+        font-size: 36px;
         display: flex;
         justify-content: center;
         height: 55px;
@@ -128,6 +141,7 @@
 
     .desktop-icon > .icon-container i,
     .desktop-icon-selected > .icon-container i {
+        margin-top: 15px;
         color: #fdb900;
     }
 
@@ -163,7 +177,8 @@
         margin-top: 5px;
         padding: 0 5px;
         background: rgba(255, 255, 255, 0.2);
-        height: 110px;
+        max-height: 110px;
+        min-height: 40px;
         text-align: center;
         border-bottom-right-radius: 5px;
         border-bottom-left-radius: 5px;

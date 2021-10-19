@@ -140,6 +140,9 @@
             </div>
         </div>
     </div>
+    <div class="app-content">
+        <slot />
+    </div>
 </div>
 
 <style>
@@ -147,11 +150,17 @@
         background: rgba(255, 0, 0, 1);
     }
 
+    .app-content {
+        overflow: scroll;
+        height: calc(100% - 40px);
+        width: 100%;
+    }
+
     .icon-box {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 30px;
+        height: 40px;
         padding: 0 10px;
     }
 
@@ -160,7 +169,7 @@
     }
 
     .window-controls {
-        height: 30px;
+        height: 40px;
         background: #3b679e;
         width: 100%;
         display: flex;
@@ -177,6 +186,18 @@
 
     .window-controls .app-name-in-window {
         padding: 5px;
+        padding-left: 2%;
+    }
+
+    .app-name-in-window {
+        overflow: hidden;
+        flex-shrink: 5;
+    }
+
+    .app-name-in-window p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .app-window-controls i {
@@ -197,8 +218,10 @@
         left: 100px;
         top: 100px;
         z-index: 1000;
-        overflow: auto;
+        overflow: hidden;
         border-radius: 10px;
+        min-width: 150px;
+        min-height: 40px;
     }
 
     :global(.full-screen) {

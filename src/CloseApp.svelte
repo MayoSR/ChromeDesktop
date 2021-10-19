@@ -5,6 +5,19 @@
         closeAppStatus,
         currentSelectedNavApp,
     } from "./stores.js";
+
+    function closeWindow() {
+        let appId = $currentSelectedNavApp.appId;
+        let newNavContent = $navbarContent.map((ele) => {
+            if (ele.appId == appId) {
+                return { ...ele, appWindowStatus: 0 };
+            }
+            return ele;
+        });
+        $navbarContent = [...newNavContent];
+    }
+
+    function currentSelectedApp() {}
 </script>
 
 <div
@@ -15,11 +28,19 @@
     style={"left:" + ($closeAppStatus - 100) + "px"}
 >
     <div class="close-tabs">
-        <div id="open-app" class="close-window-items">
+        <div
+            id="open-app"
+            class="close-window-items"
+            on:click={(e) => currentSelectedApp(e)}
+        >
             <i class={`bx ${$currentSelectedNavApp.icon} bx-sm`} />
             <p>{$currentSelectedNavApp.appName}</p>
         </div>
-        <div id="close-app" class="close-window-items">
+        <div
+            id="close-app"
+            class="close-window-items"
+            on:click={(e) => closeWindow(e)}
+        >
             <i class="bx bx-x bx-sm" />
             <p>Close Window</p>
         </div>
@@ -31,6 +52,7 @@
         display: flex;
         align-items: center;
         height: 4vh;
+        cursor: pointer;
     }
 
     .close-window-items i {
@@ -57,7 +79,7 @@
         margin-left: auto;
         margin-right: auto;
         height: 8vh;
-        z-index: 100;
+        z-index: 10000;
         background: #0059b3;
         border-radius: 10px;
         display: flex;
