@@ -64,7 +64,7 @@
         },
         {
             url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
-            name: "JavaScript (ES6+)",
+            name: "JavaScript",
         },
         {
             url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
@@ -167,7 +167,7 @@
 
     function showSkills(page) {
         var skillsBox = document.getElementById("skills-box");
-        skillsBox.scrollTop = 235 * page;
+        skillsBox.scrollTop = 215 * page;
         document.querySelectorAll(".skills-buttons").forEach((skill) => {
             console.log(skill);
             skill.style.backgroundColor = "blue";
@@ -183,56 +183,104 @@
     class="main-window"
     id="main-window-anchor"
 >
-    <div class="input-container">
-        <i class="bx bx-search-alt-2" />
-        <input id="main-window-ip" placeholder="Type here to search" />
-    </div>
-    <div id="skills">
+    <div id="top-container">
+        <div style="height:30px" />
+        <div>
+            <div class="input-container">
+                <i class="bx bx-search-alt-2" />
+                <input id="main-window-ip" placeholder="Type here to search" />
+            </div>
+        </div>
+        <div id="skills">
+            <div id="skills-container">
+                <h2 id="skills-header">Skills</h2>
+                <div id="skills-box">
+                    {#each icons as icon}
+                        <div class="skill-box">
+                            <img
+                                src={icon.url}
+                                class="skill-icons"
+                                alt={icon.name}
+                            />
+                            <p class="icon-name">{icon.name}</p>
+                        </div>
+                    {/each}
+                </div>
+            </div>
+            <div id="next-skills">
+                <div
+                    class="skills-buttons"
+                    id="skills-button-0"
+                    on:click={() => showSkills(0)}
+                />
+                <div
+                    class="skills-buttons"
+                    id="skills-button-1"
+                    on:click={() => showSkills(1)}
+                />
+            </div>
+        </div>
         <div id="skills-container">
-            <h2 id="skills-header">Skills</h2>
-            <div id="skills-box">
-                {#each icons as icon}
-                    <div class="skill-box">
+            <h2 id="skills-header">Top Skills</h2>
+            <div id="top-skills-box">
+                {#each topSkills as icon}
+                    <div class="top-skill-box">
                         <img
                             src={icon.url}
                             class="skill-icons"
                             alt={icon.name}
                         />
-                        <p class="icon-name">{icon.name}</p>
+                        <div class="top-skill-box-text">
+                            <h5>{icon.name}</h5>
+                            <p class="icon-name">{icon.experience}</p>
+                        </div>
                     </div>
                 {/each}
             </div>
         </div>
-        <div id="next-skills">
-            <div
-                class="skills-buttons"
-                id="skills-button-0"
-                on:click={() => showSkills(0)}
-            />
-            <div
-                class="skills-buttons"
-                id="skills-button-1"
-                on:click={() => showSkills(1)}
-            />
-        </div>
     </div>
-    <div id="skills-container">
-        <h2 id="skills-header">Top Skills</h2>
-        <div id="top-skills-box">
-            {#each topSkills as icon}
-                <div class="top-skill-box">
-                    <img src={icon.url} class="skill-icons" alt={icon.name} />
-                    <div class="top-skill-box-text">
-                        <h5>{icon.name}</h5>
-                        <p class="icon-name">{icon.experience}</p>
-                    </div>
-                </div>
-            {/each}
+    <div id="bottom-container">
+        <div class="name-container" style="padding-left:40px">
+            <img
+                src="https://bit.ly/dan-abramov"
+                alt="profile pic"
+                id="profile-img"
+            />
+            <h4 style="letter-spacing:0.08em">Daniel Ricciardo</h4>
+        </div>
+        <div class="name-container" style="padding-right:40px">
+            <i class="bx bx-power-off bx-sm" style="margin-top:10px" />
         </div>
     </div>
 </div>
 
 <style>
+    #top-container {
+        width: 90%;
+    }
+    #profile-img {
+        margin-right: 20px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+
+    #bottom-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        background: #004080;
+        height: 80px;
+    }
+
+    .name-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .top-skill-box-text {
         display: flex;
         flex-direction: column;
@@ -300,7 +348,7 @@
     .input-container {
         display: flex;
         align-items: center;
-        width: 100%;
+        width: 98%;
         background: #212121;
         border-radius: 5px;
         border-bottom: 2px solid #33ccff;
@@ -313,7 +361,7 @@
         justify-content: space-evenly;
         row-gap: 20px;
         overflow: hidden;
-        height: 235px;
+        height: 215px;
         text-align: left;
         scroll-behavior: smooth;
     }
@@ -357,17 +405,17 @@
         position: absolute;
         bottom: 60px;
         left: 33%;
-        width: 30vw;
+        width: 600px;
         margin-left: auto;
         margin-right: auto;
-        height: 70vh;
+        height: 720px;
         z-index: 100;
         background: #0059b3;
         border-radius: 10px;
         display: flex;
         align-items: center;
         flex-direction: column;
-        padding: 30px;
+        overflow: hidden;
         color: white;
     }
 </style>

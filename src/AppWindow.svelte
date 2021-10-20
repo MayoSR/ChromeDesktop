@@ -1,5 +1,5 @@
 <script>
-    import { navbarContent, closeAppStatus } from "./stores.js";
+    import { topZIndex, navbarContent, closeAppStatus } from "./stores.js";
     import { fade } from "svelte/transition";
     export let windowId;
     export let applicationName;
@@ -9,6 +9,7 @@
     import { scale } from "svelte/transition";
     import { quintOut } from "svelte/easing";
     let preFullScreenSizes = [];
+    import { get } from "svelte/store";
 
     function windowStart(e) {
         let ele = e.target.getBoundingClientRect();
@@ -97,6 +98,13 @@
         });
         $navbarContent = [...newNavContent];
     }
+
+    function bringToFront(e) {
+        let value = get(topZIndex);
+        console.log(value);
+        topZIndex.set(value + 1);
+        e.target.closest(".app-window").style.zIndex = value;
+    }
 </script>
 
 <div
@@ -117,6 +125,7 @@
     id={windowId}
     on:dragstart={(e) => windowStart(e)}
     on:dragend={(e) => windowStop(e)}
+    on:mousedown={(e) => bringToFront(e)}
 >
     <div class="window-controls">
         <div class="app-name-in-window">
@@ -214,7 +223,6 @@
         height: 50vh;
         width: 50vw;
         resize: both;
-        background: black;
         left: 100px;
         top: 100px;
         z-index: 1000;
@@ -222,6 +230,7 @@
         border-radius: 10px;
         min-width: 150px;
         min-height: 40px;
+        background: #f8f8f8;
     }
 
     :global(.full-screen) {
@@ -231,8 +240,8 @@
         width: 100vw !important;
         border-radius: 0 !important;
         position: absolute;
-        background: black;
         z-index: 1000;
+        background: #f8f8f8;
         overflow: auto;
     }
 </style>

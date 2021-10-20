@@ -5,27 +5,43 @@
     import MainWindow from "./MainWindow.svelte";
     import Navbar from "./Navbar.svelte";
     import AppWindow from "./AppWindow.svelte";
-    import ProjectDetail from "./projects/ProjectDetail.svelte";
+    import JobTracker from "./projects/JobTracker.svelte";
+    import RecipePicker from "./projects/RecipePicker.svelte";
+    import MoviePicker from "./projects/MoviePicker.svelte";
+    import VirtualDeviceManager from "./VirtualDeviceManager.svelte";
     import {
         navbarContent,
         closeAppStatus,
         mainWindowStatus,
+        iconContextMenuStatus,
+        appLink,
     } from "./stores.js";
+    import ContextMenuVdm from "./ContextMenuVDM.svelte";
+
+    let componentMapper = {
+        VirtualDeviceManager: VirtualDeviceManager,
+        MoviePicker: MoviePicker,
+        RecipePicker: RecipePicker,
+        JobTracker: JobTracker,
+    };
 </script>
 
 <div class="desktop">
     {#each $navbarContent as app}
-        <DesktopIcon
-            appId={app.appId}
-            appName={app.appName}
-            iconProp={app.icon}
-        />
+        {#if app.visibleOnDesktop}
+            <DesktopIcon
+                appId={app.appId}
+                appName={app.appName}
+                iconProp={app.icon}
+            />
+        {/if}
     {/each}
 
     <Navbar />
     {#if $mainWindowStatus}
         <MainWindow />
     {/if}
+    <ContextMenuVdm />
     {#if $closeAppStatus}
         <CloseApp />
     {/if}
@@ -36,30 +52,7 @@
                 applicationName={app.appName}
                 screen={app.fullScreen}
             >
-                <ProjectDetail
-                    text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum."
-                    heading="Movie Picker App"
-                    icons={[
-                        {
-                            url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
-                            name: "MySQL",
-                        },
-                        {
-                            url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
-                            name: "Firebase",
-                        },
-                        {
-                            url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
-                            name: "NextJs",
-                        },
-                    ]}
-                />
+                <svelte:component this={componentMapper[app.appExe]} />
             </AppWindow>
         {/if}
     {/each}

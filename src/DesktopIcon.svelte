@@ -5,6 +5,8 @@
         currentSelectedNavApp,
         navbarContent,
         closeAppStatus,
+        iconContextMenuStatus,
+        appLink,
     } from "./stores.js";
     export let appId;
     export let iconProp;
@@ -25,6 +27,31 @@
         });
         e.stopPropagation();
     }
+
+    function openInVDM(e) {
+        e.preventDefault();
+        $appLink = $navbarContent.filter(
+            (ele) =>
+                ele.appId ==
+                e.target.closest(".desktop-icon").id.split("icon-")[1]
+        )[0].virtualDeviceLink;
+        $iconContextMenuStatus = {
+            clientX: e.clientX,
+            clientY: e.clientY,
+            status: $iconContextMenuStatus.status + 1,
+        };
+    }
+
+    function updateVDMLocation() {
+        if ($iconContextMenuStatus.status) {
+            document.getElementById("icon-context-menu").style.top =
+                $iconContextMenuStatus.clientY + "px";
+            document.getElementById("icon-context-menu").style.left =
+                $iconContextMenuStatus.clientX + "px";
+        }
+    }
+
+    $: $iconContextMenuStatus, updateVDMLocation();
 
     function openApplication(e) {
         let icon = e.target.id;
@@ -63,6 +90,7 @@
             return { ...element, status: 0 };
         });
         $closeAppStatus = 0;
+        document.getElementById("icon-context-menu").style.top = "-1000px";
         currentSelectedNavApp.set(1);
     });
 </script>
@@ -74,6 +102,7 @@
     id={`icon-${appId}`}
     on:click={(e) => selectedIcon(e)}
     on:dblclick={(e) => openApplication(e)}
+    on:contextmenu={(e) => openInVDM(e)}
 >
     <div class="icon-container">
         <img src={`/figma/${iconProp}.png`} alt={iconProp} class="img-icon" />
