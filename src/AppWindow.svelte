@@ -230,7 +230,7 @@
         border-radius: 10px;
         min-width: 150px;
         min-height: 40px;
-        background: #f8f8f8;
+        background: grey;
     }
 
     :global(.full-screen) {

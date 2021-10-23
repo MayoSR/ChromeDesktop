@@ -57,6 +57,14 @@
     function specialWindowToggle() {
         mainWindowStatus.set(1 - $mainWindowStatus);
     }
+
+    let dateToday = new Date().toLocaleString().split(", ")[0];
+    let timeNow = new Date().toLocaleString().split(", ")[1].slice(0, 5);
+
+    setInterval(() => {
+        dateToday = new Date().toLocaleString().split(", ")[0];
+        timeNow = new Date().toLocaleString().split(", ")[1].slice(0, 5);
+    }, 60000);
 </script>
 
 <div class="navbar-container">
@@ -83,9 +91,54 @@
             {/if}
         {/each}
     </div>
+    <div class="data-nav">
+        <div class="language">
+            <p>ENG</p>
+            <p>US</p>
+        </div>
+        <div class="device-icons">
+            <i class="bi bi-wifi" />
+            <i class="bi bi-volume-up" />
+            <i class="bi bi-battery-charging" />
+        </div>
+        <div class="nav-time">
+            <p>{timeNow}</p>
+            <p>{dateToday}</p>
+        </div>
+    </div>
 </div>
 
 <style>
+    .nav-time p {
+        text-align: right !important;
+        font-size: 14px !important;
+    }
+
+    .data-nav {
+        height: 60px;
+        position: absolute;
+        bottom: -2px;
+        right: 0;
+        align-items: center;
+        display: flex;
+        color: white;
+        font-size: 14px;
+    }
+
+    .device-icons i {
+        margin-right: 10px;
+        font-size: 20px;
+    }
+
+    .data-nav div {
+        margin-right: 10px;
+    }
+
+    .data-nav p {
+        margin: 0;
+        text-align: center;
+    }
+
     #windows-icon {
         color: #003660;
     }
@@ -120,7 +173,7 @@
         z-index: 100000;
     }
 
-    .navbar {
+    .navbar-container {
         background: linear-gradient(
             to right,
             #3b679e 0%,

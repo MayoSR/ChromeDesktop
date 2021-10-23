@@ -30,10 +30,10 @@
 
     function openInVDM(e) {
         e.preventDefault();
+        currentSelectedNavApp.set(e.target);
         $appLink = $navbarContent.filter(
             (ele) =>
-                ele.appId ==
-                e.target.closest(".desktop-icon").id.split("icon-")[1]
+                ele.appId == e.target.closest(".id-class").id.split("icon-")[1]
         )[0].virtualDeviceLink;
         $iconContextMenuStatus = {
             clientX: e.clientX,
@@ -97,8 +97,8 @@
 
 <div
     class={`icon-${$currentSelectedNavApp.appId}` === `icon-${appId}`
-        ? "desktop-icon-selected"
-        : "desktop-icon"}
+        ? "id-class desktop-icon-selected"
+        : "id-class desktop-icon"}
     id={`icon-${appId}`}
     on:click={(e) => selectedIcon(e)}
     on:dblclick={(e) => openApplication(e)}

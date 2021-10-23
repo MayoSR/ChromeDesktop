@@ -16,7 +16,8 @@ export const navbarContent = writable([
         appWindowStatus: 0,
         fullScreen: 0,
         virtualDeviceLink: "https://jobpicker16.netlify.app",
-        visibleOnDesktop: true
+        visibleOnDesktop: true,
+        urlGitHub: "https://github.com/MayoSR/JobTracker"
     },
     {
         appId: 2,
@@ -27,7 +28,8 @@ export const navbarContent = writable([
         appWindowStatus: 0,
         fullScreen: 0,
         virtualDeviceLink: "https://moviepicker16.netlify.app",
-        visibleOnDesktop: true
+        visibleOnDesktop: true,
+        urlGitHub: "https://github.com/MayoSR/MovieChoice"
     },
     {
         appId: 3,
@@ -38,7 +40,8 @@ export const navbarContent = writable([
         appWindowStatus: 0,
         fullScreen: 0,
         virtualDeviceLink: "https://recipebook16.netlify.app",
-        visibleOnDesktop: true
+        visibleOnDesktop: true,
+        urlGitHub: "https://github.com/MayoSR/RecipeBook"
     },
     {
         appId: 4,
@@ -50,5 +53,76 @@ export const navbarContent = writable([
         fullScreen: 0,
         visibleOnDesktop: false,
         appLink: null,
-    }
+
+    },
+    {
+        appId: 5,
+        appName: "Resume",
+        icon: "/resume/resume",
+        appExe: "Resume",
+        status: 0,
+        appWindowStatus: 0,
+        fullScreen: 0,
+        visibleOnDesktop: true,
+        appLink: null,
+    },
+    {
+        appId: 6,
+        appName: "Food Ordering App",
+        icon: "/ordering/ordering",
+        appExe: "FoodOrdering",
+        status: 0,
+        appWindowStatus: 0,
+        fullScreen: 0,
+        visibleOnDesktop: true,
+        virtualDeviceLink: "https://foodordering16.netlify.app/",
+        appLink: null,
+        urlGitHub: "https://github.com/MayoSR/FoodRepository"
+    },
+    {
+        appId: 7,
+        appName: "Question Bank Clustering",
+        icon: "/question/question",
+        appExe: "Question",
+        status: 0,
+        appWindowStatus: 0,
+        fullScreen: 0,
+        visibleOnDesktop: true,
+        appLink: null,
+        urlGitHub: "https://github.com/MayoSR/MovieChoice"
+    },
+    {
+        appId: 8,
+        appName: "Help Desk",
+        icon: "/question/question",
+        appExe: "HelpDesk",
+        status: 0,
+        appWindowStatus: 1,
+        fullScreen: 0,
+        visibleOnDesktop: true,
+        appLink: null,
+    },
+    {
+        appId: 9,
+        appName: "Crop Analysis",
+        icon: "/ids/ids",
+        appExe: "CropAnalysis",
+        status: 0,
+        appWindowStatus: 0,
+        fullScreen: 0,
+        visibleOnDesktop: true,
+        appLink: null,
+    },
+    {
+        appId: 10,
+        appName: "Connect 4",
+        icon: "/ids/ids",
+        appExe: "Connect4",
+        status: 0,
+        appWindowStatus: 0,
+        fullScreen: 0,
+        visibleOnDesktop: true,
+        appLink: null,
+        urlGitHub: "https://github.com/MayoSR/connect4"
+    },
 ]);

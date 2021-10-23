@@ -8,6 +8,11 @@
     import JobTracker from "./projects/JobTracker.svelte";
     import RecipePicker from "./projects/RecipePicker.svelte";
     import MoviePicker from "./projects/MoviePicker.svelte";
+    import Resume from "./projects/Resume.svelte";
+    import Question from "./projects/Question.svelte";
+    import HelpDesk from "./projects/HelpDesk.svelte";
+    import CropAnalysis from "./projects/CropAnalysis.svelte";
+    import Connect4 from "./projects/Connect4.svelte";
     import VirtualDeviceManager from "./VirtualDeviceManager.svelte";
     import {
         navbarContent,
@@ -23,20 +28,26 @@
         MoviePicker: MoviePicker,
         RecipePicker: RecipePicker,
         JobTracker: JobTracker,
+        Resume: Resume,
+        Question: Question,
+        HelpDesk: HelpDesk,
+        CropAnalysis: CropAnalysis,
+        Connect4: Connect4,
     };
 </script>
 
 <div class="desktop">
-    {#each $navbarContent as app}
-        {#if app.visibleOnDesktop}
-            <DesktopIcon
-                appId={app.appId}
-                appName={app.appName}
-                iconProp={app.icon}
-            />
-        {/if}
-    {/each}
-
+    <div class="icon-grid">
+        {#each $navbarContent as app}
+            {#if app.visibleOnDesktop}
+                <DesktopIcon
+                    appId={app.appId}
+                    appName={app.appName}
+                    iconProp={app.icon}
+                />
+            {/if}
+        {/each}
+    </div>
     <Navbar />
     {#if $mainWindowStatus}
         <MainWindow />
@@ -45,6 +56,7 @@
     {#if $closeAppStatus}
         <CloseApp />
     {/if}
+
     {#each $navbarContent as app}
         {#if app.appId !== 0 && app.appWindowStatus > 0}
             <AppWindow
@@ -59,6 +71,10 @@
 </div>
 
 <style>
+    .icon-grid {
+        height: 90vh;
+    }
+
     .desktop {
         width: 100vw;
         height: 100vh;
