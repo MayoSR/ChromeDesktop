@@ -1,5 +1,6 @@
 <script>
     import { slide, fly } from "svelte/transition";
+    import { lockScreen, mainWindowStatus } from "./stores.js";
 
     let icons = [
         {
@@ -175,6 +176,11 @@
         document.getElementById(`skills-button-${page}`).style.backgroundColor =
             "cyan";
     }
+
+    function logout() {
+        mainWindowStatus.set(0);
+        lockScreen.set(1);
+    }
 </script>
 
 <div
@@ -249,7 +255,11 @@
             <h4 style="letter-spacing:0.08em">Daniel Ricciardo</h4>
         </div>
         <div class="name-container" style="padding-right:40px">
-            <i class="bx bx-power-off bx-sm" style="margin-top:10px" />
+            <i
+                class="bx bx-power-off bx-sm"
+                style="margin-top:10px"
+                on:click={(e) => logout(e)}
+            />
         </div>
     </div>
 </div>
@@ -279,6 +289,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    .name-container i {
+        cursor: pointer;
     }
 
     .top-skill-box-text {

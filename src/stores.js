@@ -6,6 +6,8 @@ export const currentSelectedNavApp = writable({ icon: "", appName: "" })
 export const mainWindowStatus = writable(0)
 export const iconContextMenuStatus = writable({ status: 0, clientX: 0, clientY: 0 })
 export const appLink = writable(null)
+export const lockScreen = writable(0)
+
 export const navbarContent = writable([
     {
         appId: 1,
@@ -124,5 +126,16 @@ export const navbarContent = writable([
         visibleOnDesktop: true,
         appLink: null,
         urlGitHub: "https://github.com/MayoSR/connect4"
+    },
+    {
+        appId: 11,
+        appName: "Personal Info",
+        icon: "/ids/ids",
+        appExe: "WhoAmI",
+        status: 0,
+        appWindowStatus: 1,
+        fullScreen: -1,
+        visibleOnDesktop: true,
+        appLink: null,
     },
 ]);

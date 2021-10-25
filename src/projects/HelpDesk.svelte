@@ -4,11 +4,11 @@
     import { slide, fly } from "svelte/transition";
 
     onMount((async) => {
-        document.getElementById("app-window-8").style.height = "60vh";
+        document.getElementById("app-window-8").style.height = "46vh";
         document.getElementById("app-window-8").style.width = "400px";
         document.getElementById("app-window-8").style.left =
             window.innerWidth - 420 + "px";
-        document.getElementById("app-window-8").style.top = 20 + "px";
+        document.getElementById("app-window-8").style.top = "45vh";
     });
 </script>
 
@@ -32,7 +32,7 @@
         all have the same window controlled by the "OS", however each App also renders
         its own component within the window.
     </p>
-    <h3>Q: How does I use this?</h3>
+    <h3>Q: How do I use this?</h3>
     <p>
         <span class="answer-weight">A:</span> It works the same way as a desktop
         does! You can open apps by
@@ -40,7 +40,7 @@
         apps by <span class="answer-weight">single clicking</span> and
         <span class="answer-weight">right clicking</span> to open the Virtual Device
         Manager for compatible apps. Source code can also be viewed by right clicking
-        and viewing it on GitHub. Alternatively, you can watch the tutorial video
+        and viewing it on GitHub. Alternatively, you can watch the tutorial video.
     </p>
     <h3>Q: Why are all the apps not hosted?</h3>
     <p>
@@ -50,7 +50,7 @@
         Learning related and contain models of gigantic proportions that cannot be
         feasibly hosted on a cost effective server. For these, a video of the app's
         functioning has been provided instead. If you would still like to try them,
-        most of them can run downloaded and run straight from GitHub.
+        most of them can be downloaded and run straight from GitHub.
     </p>
 </div>
 

@@ -7,7 +7,9 @@
         closeAppStatus,
         iconContextMenuStatus,
         appLink,
+        topZIndex,
     } from "./stores.js";
+    import { get } from "svelte/store";
     export let appId;
     export let iconProp;
     export let appName;
@@ -55,7 +57,13 @@
 
     function openApplication(e) {
         let icon = e.target.id;
+        let value = get(topZIndex);
+        topZIndex.set(value + 1);
         newAppId = e.target.id.split("icon-")[1];
+        try {
+            document.getElementById(`app-window-${newAppId}`).style.zIndex =
+                value + 1;
+        } catch (e) {}
         e.stopPropagation();
         if ($navbarContent.filter((app) => app.appId == newAppId).length <= 0) {
             $navbarContent = [

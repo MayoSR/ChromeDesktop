@@ -1,5 +1,6 @@
 <script>
     import { topZIndex, navbarContent, closeAppStatus } from "./stores.js";
+    import { get } from "svelte/store";
     import { fade } from "svelte/transition";
     export let windowId;
     export let applicationName;
@@ -9,7 +10,6 @@
     import { scale } from "svelte/transition";
     import { quintOut } from "svelte/easing";
     let preFullScreenSizes = [];
-    import { get } from "svelte/store";
 
     function windowStart(e) {
         let ele = e.target.getBoundingClientRect();
@@ -47,9 +47,10 @@
         let appWindowEle = e.target.closest(".app-window");
         let appWindowEleId = appWindowEle.id.split("app-window-")[1];
         preFullScreenSizes = appWindowEle.getBoundingClientRect();
-        appWindowEle.classList.add("full-screen");
+
         let newNavContent = $navbarContent.map((ele) => {
-            if (ele.appId == appWindowEleId) {
+            if (ele.appId == appWindowEleId && ele.fullScreen >= 0) {
+                appWindowEle.classList.add("full-screen");
                 return { ...ele, fullScreen: 1 };
             }
             return ele;

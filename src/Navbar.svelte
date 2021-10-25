@@ -5,7 +5,9 @@
         closeAppStatus,
         currentSelectedNavApp,
         mainWindowStatus,
+        topZIndex,
     } from "./stores.js";
+    import { get } from "svelte/store";
     import { slide, fly } from "svelte/transition";
     import { element } from "svelte/internal";
 
@@ -54,15 +56,27 @@
         $navbarContent = [...newNavContent];
     }
 
+    function bringToFront(e) {
+        app = e.target.id.split("nav-app-")[1];
+        let value = get(topZIndex);
+        console.log(value);
+        topZIndex.set(value + 1);
+        document.getElementById(`app-window-${app}`).style.zIndex = value + 1;
+    }
+
     function specialWindowToggle() {
         mainWindowStatus.set(1 - $mainWindowStatus);
     }
 
-    let dateToday = new Date().toLocaleString().split(", ")[0];
+    let dateTodayTemp = new Date().toLocaleString().split(", ")[0].split("/");
+    let dateToday =
+        dateTodayTemp[1] + "-" + dateTodayTemp[0] + "-" + dateTodayTemp[2];
     let timeNow = new Date().toLocaleString().split(", ")[1].slice(0, 5);
 
     setInterval(() => {
-        dateToday = new Date().toLocaleString().split(", ")[0];
+        dateTodayTemp = new Date().toLocaleString().split(", ")[0].split("/");
+        dateToday =
+            dateTodayTemp[1] + "-" + dateTodayTemp[0] + "-" + dateTodayTemp[2];
         timeNow = new Date().toLocaleString().split(", ")[1].slice(0, 5);
     }, 60000);
 </script>
@@ -86,7 +100,7 @@
                     in:fly={{ y: 1000, duration: 250 }}
                     out:fly={{ y: 1000, duration: 250 }}
                     on:contextmenu={(e) => closeApp(e)}
-                    on:click={(e) => reOpenApp(e)}
+                    on:click={(e) => bringToFront(e)}
                 />
             {/if}
         {/each}

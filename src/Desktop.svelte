@@ -13,13 +13,16 @@
     import HelpDesk from "./projects/HelpDesk.svelte";
     import CropAnalysis from "./projects/CropAnalysis.svelte";
     import Connect4 from "./projects/Connect4.svelte";
+    import WhoAmI from "./projects/WhoAmI.svelte";
     import VirtualDeviceManager from "./VirtualDeviceManager.svelte";
+    import LockScreen from "./LockScreen.svelte";
     import {
         navbarContent,
         closeAppStatus,
         mainWindowStatus,
         iconContextMenuStatus,
         appLink,
+        lockScreen,
     } from "./stores.js";
     import ContextMenuVdm from "./ContextMenuVDM.svelte";
 
@@ -33,42 +36,47 @@
         HelpDesk: HelpDesk,
         CropAnalysis: CropAnalysis,
         Connect4: Connect4,
+        WhoAmI: WhoAmI,
     };
 </script>
 
-<div class="desktop">
-    <div class="icon-grid">
+{#if $lockScreen}
+    <LockScreen />
+{:else}
+    <div class="desktop">
+        <div class="icon-grid">
+            {#each $navbarContent as app}
+                {#if app.visibleOnDesktop}
+                    <DesktopIcon
+                        appId={app.appId}
+                        appName={app.appName}
+                        iconProp={app.icon}
+                    />
+                {/if}
+            {/each}
+        </div>
+        <Navbar />
+        {#if $mainWindowStatus}
+            <MainWindow />
+        {/if}
+        <ContextMenuVdm />
+        {#if $closeAppStatus}
+            <CloseApp />
+        {/if}
+
         {#each $navbarContent as app}
-            {#if app.visibleOnDesktop}
-                <DesktopIcon
-                    appId={app.appId}
-                    appName={app.appName}
-                    iconProp={app.icon}
-                />
+            {#if app.appId !== 0 && app.appWindowStatus > 0}
+                <AppWindow
+                    windowId={`app-window-${app.appId}`}
+                    applicationName={app.appName}
+                    screen={app.fullScreen > 0 ? app.fullScreen : 0}
+                >
+                    <svelte:component this={componentMapper[app.appExe]} />
+                </AppWindow>
             {/if}
         {/each}
     </div>
-    <Navbar />
-    {#if $mainWindowStatus}
-        <MainWindow />
-    {/if}
-    <ContextMenuVdm />
-    {#if $closeAppStatus}
-        <CloseApp />
-    {/if}
-
-    {#each $navbarContent as app}
-        {#if app.appId !== 0 && app.appWindowStatus > 0}
-            <AppWindow
-                windowId={`app-window-${app.appId}`}
-                applicationName={app.appName}
-                screen={app.fullScreen}
-            >
-                <svelte:component this={componentMapper[app.appExe]} />
-            </AppWindow>
-        {/if}
-    {/each}
-</div>
+{/if}
 
 <style>
     .icon-grid {
