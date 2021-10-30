@@ -14,6 +14,7 @@
     import CropAnalysis from "./projects/CropAnalysis.svelte";
     import Connect4 from "./projects/Connect4.svelte";
     import WhoAmI from "./projects/WhoAmI.svelte";
+    import HTMLWireframeConverter from "./projects/HTMLWireframeConverter.svelte";
     import VirtualDeviceManager from "./VirtualDeviceManager.svelte";
     import LockScreen from "./LockScreen.svelte";
     import {
@@ -37,6 +38,7 @@
         CropAnalysis: CropAnalysis,
         Connect4: Connect4,
         WhoAmI: WhoAmI,
+        HTMLWireframeConverter: HTMLWireframeConverter,
     };
 </script>
 
@@ -47,11 +49,13 @@
         <div class="icon-grid">
             {#each $navbarContent as app}
                 {#if app.visibleOnDesktop}
-                    <DesktopIcon
-                        appId={app.appId}
-                        appName={app.appName}
-                        iconProp={app.icon}
-                    />
+                    <div class="desktop-icon">
+                        <DesktopIcon
+                            appId={app.appId}
+                            appName={app.appName}
+                            iconProp={app.icon}
+                        />
+                    </div>
                 {/if}
             {/each}
         </div>
@@ -70,6 +74,8 @@
                     windowId={`app-window-${app.appId}`}
                     applicationName={app.appName}
                     screen={app.fullScreen > 0 ? app.fullScreen : 0}
+                    hasGitHub={app.urlGitHub}
+                    hasAppLink={app.virtualDeviceLink}
                 >
                     <svelte:component this={componentMapper[app.appExe]} />
                 </AppWindow>
@@ -81,6 +87,14 @@
 <style>
     .icon-grid {
         height: 90vh;
+        display: grid;
+        grid-template-columns: fit-content(20%) fit-content(20%);
+        grid-template-rows: repeat(10, 100px);
+        grid-auto-flow: column;
+    }
+
+    .desktop-icon {
+        height: 80px;
     }
 
     .desktop {
@@ -89,5 +103,23 @@
         background: url("/static/windowsbg.jpg");
         background-size: cover;
         padding: 20px;
+    }
+
+    @media screen and (max-height: 1000px) {
+        .icon-grid {
+            grid-template-rows: repeat(9, 100px);
+        }
+    }
+
+    @media screen and (max-height: 800px) {
+        .icon-grid {
+            grid-template-rows: repeat(8, 100px);
+        }
+    }
+
+    @media screen and (max-height: 845px) {
+        .icon-grid {
+            grid-template-rows: repeat(7, 100px);
+        }
     }
 </style>

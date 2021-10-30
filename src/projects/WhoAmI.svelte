@@ -1,6 +1,6 @@
 <script>
     import { onMount } from "svelte";
-
+    import { mainWindowStatus } from "../stores.js";
     import { slide, fly } from "svelte/transition";
 
     onMount((async) => {
@@ -18,6 +18,10 @@
         setTimeout(() => {
             document.getElementById("copied-snackbar").style.display = "none";
         }, 1000);
+    }
+
+    function specialWindowToggle() {
+        mainWindowStatus.set(1 - $mainWindowStatus);
     }
 </script>
 
@@ -59,6 +63,15 @@
                         <p id="copied-snackbar">Email Copied!</p>
                         <i class="bx bx-envelope bx-md" />
                     </div>
+                    <img
+                        src={`/icons/m.png`}
+                        on:click={() => specialWindowToggle()}
+                        class={"nav-icons"}
+                        in:fly={{ y: 1000, duration: 250 }}
+                        out:fly={{ y: 1000, duration: 250 }}
+                        alt="osicon"
+                        id="my-skills"
+                    />
                 </div>
             </div>
             <h1 style="margin:0;margin-top:10px;text-align:center">
@@ -76,6 +89,11 @@
 </div>
 
 <style>
+    #my-skills {
+        margin-top: 5px;
+        cursor: pointer;
+    }
+
     #viewport-box {
         height: 30vh;
     }
@@ -123,6 +141,7 @@
     .about-me h2 {
         margin: 0;
         margin-left: 5px;
+        margin-top: 10px;
     }
 
     .content-box {

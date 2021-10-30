@@ -83,16 +83,18 @@
 
 <div class="navbar-container">
     <div class="navbar">
-        <i
+        <img
+            src={`/icons/m.png`}
             on:click={() => specialWindowToggle()}
-            class={"nav-icons bx bx-command"}
+            class={"nav-icons"}
             in:fly={{ y: 1000, duration: 250 }}
             out:fly={{ y: 1000, duration: 250 }}
+            alt="osicon"
         />
         {#each $navbarContent as content, ind}
             {#if content.appWindowStatus}
                 <img
-                    src={`/figma/${content.icon}.png`}
+                    src={`${content.icon}.png`}
                     alt={content.icon}
                     id={`nav-app-${content.appId}`}
                     class={"nav-icons"}

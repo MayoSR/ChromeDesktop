@@ -1,7 +1,8 @@
 <script>
     import { onMount } from "svelte";
 
-    import { appLink } from "./stores.js";
+    import { appLink, topZIndex } from "./stores.js";
+    import { get } from "svelte/store";
 
     onMount(async () => {
         let appWindow = document
@@ -11,9 +12,13 @@
             .getElementById("virtual-device-frame")
             .closest(".app-content");
 
+        let value = get(topZIndex);
+        topZIndex.set(value + 1);
+
         appWindow.style.height = "862px";
         appWindow.style.width = "395px";
         appWindow.style.top = 0;
+        appWindow.style.zIndex = value + 1;
         appContent.style.overflow = "hidden";
     });
 </script>

@@ -113,7 +113,7 @@
     on:contextmenu={(e) => openInVDM(e)}
 >
     <div class="icon-container">
-        <img src={`/figma/${iconProp}.png`} alt={iconProp} class="img-icon" />
+        <img src={`${iconProp}.png`} alt={iconProp} class="img-icon" />
     </div>
     <div class="p-container">
         <p class="icon-name">

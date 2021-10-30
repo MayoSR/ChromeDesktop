@@ -1,12 +1,19 @@
 <script>
-    import { topZIndex, navbarContent, closeAppStatus } from "./stores.js";
+    import {
+        topZIndex,
+        navbarContent,
+        closeAppStatus,
+        appLink,
+    } from "./stores.js";
     import { get } from "svelte/store";
     import { fade } from "svelte/transition";
     export let windowId;
     export let applicationName;
     export let screen;
+    export let hasAppLink;
     let cursorStartX = null;
     let cursorStartY = null;
+    export let hasGitHub = null;
     import { scale } from "svelte/transition";
     import { quintOut } from "svelte/easing";
     let preFullScreenSizes = [];
@@ -56,6 +63,7 @@
             return ele;
         });
         $navbarContent = [...newNavContent];
+        bringToFront(e);
     }
 
     function unFullScreen(e) {
@@ -102,9 +110,17 @@
 
     function bringToFront(e) {
         let value = get(topZIndex);
-        console.log(value);
         topZIndex.set(value + 1);
         e.target.closest(".app-window").style.zIndex = value;
+    }
+
+    function openVDMapp(e) {
+        $navbarContent = $navbarContent.map((ele) => {
+            if (ele.appId === 4) {
+                return { ...ele, appWindowStatus: 1 };
+            }
+            return ele;
+        });
     }
 </script>
 
@@ -153,9 +169,82 @@
     <div class="app-content">
         <slot />
     </div>
+
+    <div class="app-links-container">
+        <div class="app-links">
+            {#if hasGitHub !== null}
+                <a href={hasGitHub}>
+                    <div class="img-icon-container">
+                        <i class="devicon-github-original" />
+                        <h5>View on GitHub</h5>
+                    </div>
+                </a>
+            {/if}
+            {#if hasAppLink !== null}
+                <div
+                    class="img-icon-container"
+                    on:click={(e) => {
+                        $appLink = hasAppLink;
+                        openVDMapp(e);
+                    }}
+                >
+                    <i class="bx bx-devices" />
+                    <h5>Live Demo</h5>
+                </div>
+            {/if}
+        </div>
+    </div>
 </div>
 
 <style>
+    .img-icon-container {
+        background: rgba(41, 41, 41, 0.8);
+        border-radius: 5px;
+        padding: 3px 5px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        color: white;
+    }
+
+    .img-icon-container img,
+    .img-icon-container i {
+        pointer-events: none;
+        font-size: 32px;
+    }
+
+    .app-links a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .img-icon-container h5 {
+        margin: 0;
+        margin-left: 10px;
+    }
+
+    .img-icon-container:hover {
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .app-links-container {
+        position: absolute;
+        top: 60px;
+        left: 20px;
+    }
+
+    .app-links {
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .app-links img {
+        height: 30px;
+        width: 30px;
+    }
+
     #close-icon:hover {
         background: rgba(255, 0, 0, 1);
     }
@@ -232,6 +321,7 @@
         min-width: 150px;
         min-height: 40px;
         background: grey;
+        box-shadow: 0px 10px 19px 2px rgba(0, 0, 0, 0.29);
     }
 
     :global(.full-screen) {
