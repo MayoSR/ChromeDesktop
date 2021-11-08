@@ -2,7 +2,10 @@
     import { lockScreen, navbarContent } from "./stores.js";
     import { slide, fly } from "svelte/transition";
     function login() {
-        lockScreen.set(0);
+        toggleFullScreen();
+        setTimeout(() => {
+            lockScreen.set(0);
+        }, 500);
     }
 
     $navbarContent = $navbarContent.map((ele) => {
@@ -11,6 +14,24 @@
         }
         return ele;
     });
+
+    function toggleFullScreen() {
+        if (
+            (document.fullScreenElement &&
+                document.fullScreenElement !== null) ||
+            (!document.mozFullScreen && !document.webkitIsFullScreen)
+        ) {
+            if (document.documentElement.requestFullScreen) {
+                document.documentElement.requestFullScreen();
+            } else if (document.documentElement.mozRequestFullScreen) {
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.webkitRequestFullScreen) {
+                document.documentElement.webkitRequestFullScreen(
+                    Element.ALLOW_KEYBOARD_INPUT
+                );
+            }
+        }
+    }
 </script>
 
 <div

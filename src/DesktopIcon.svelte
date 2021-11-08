@@ -8,6 +8,8 @@
         iconContextMenuStatus,
         appLink,
         topZIndex,
+        leftOffset,
+        topOffset,
     } from "./stores.js";
     import { get } from "svelte/store";
     export let appId;

@@ -4,6 +4,8 @@
         navbarContent,
         closeAppStatus,
         appLink,
+        topOffset,
+        leftOffset,
     } from "./stores.js";
     import { get } from "svelte/store";
     import { fade } from "svelte/transition";
@@ -11,11 +13,13 @@
     export let applicationName;
     export let screen;
     export let hasAppLink;
+    export let hasDisableSize;
     let cursorStartX = null;
     let cursorStartY = null;
     export let hasGitHub = null;
     import { scale } from "svelte/transition";
     import { quintOut } from "svelte/easing";
+    import { onMount } from "svelte";
     let preFullScreenSizes = [];
 
     function windowStart(e) {
@@ -106,6 +110,8 @@
             return ele;
         });
         $navbarContent = [...newNavContent];
+        $topOffset = $topOffset - 40;
+        $leftOffset = $leftOffset - 40;
     }
 
     function bringToFront(e) {
@@ -122,6 +128,17 @@
             return ele;
         });
     }
+
+    onMount(async () => {
+        if (!hasDisableSize) {
+            let topOffsetVal = get(topOffset);
+            let leftOffsetVal = get(leftOffset);
+            document.getElementById(windowId).style.top = topOffsetVal + "px";
+            document.getElementById(windowId).style.left = leftOffsetVal + "px";
+            $topOffset = $topOffset + 40;
+            $leftOffset = $leftOffset + 40;
+        }
+    });
 </script>
 
 <div
@@ -313,8 +330,6 @@
         height: 50vh;
         width: 50vw;
         resize: both;
-        left: 100px;
-        top: 100px;
         z-index: 1000;
         overflow: hidden;
         border-radius: 10px;

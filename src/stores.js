@@ -7,6 +7,8 @@ export const mainWindowStatus = writable(0)
 export const iconContextMenuStatus = writable({ status: 0, clientX: 0, clientY: 0 })
 export const appLink = writable(null)
 export const lockScreen = writable(0)
+export const leftOffset = writable(100)
+export const topOffset = writable(100)
 
 export const navbarContent = writable([
     {
@@ -19,7 +21,8 @@ export const navbarContent = writable([
         fullScreen: 0,
         virtualDeviceLink: "https://jobpicker16.netlify.app",
         visibleOnDesktop: true,
-        urlGitHub: "https://github.com/MayoSR/JobTracker"
+        urlGitHub: "https://github.com/MayoSR/JobTracker",
+        type: "UI and Mobile Apps"
     },
     {
         appId: 2,
@@ -31,7 +34,8 @@ export const navbarContent = writable([
         fullScreen: 0,
         virtualDeviceLink: "https://moviepicker16.netlify.app",
         visibleOnDesktop: true,
-        urlGitHub: "https://github.com/MayoSR/MovieChoice"
+        urlGitHub: "https://github.com/MayoSR/MovieChoice",
+        type: "UI and Mobile Apps"
     },
     {
         appId: 3,
@@ -43,7 +47,8 @@ export const navbarContent = writable([
         fullScreen: 0,
         virtualDeviceLink: "https://recipebook16.netlify.app",
         visibleOnDesktop: true,
-        urlGitHub: "https://github.com/MayoSR/RecipeBook"
+        urlGitHub: "https://github.com/MayoSR/RecipeBook",
+        type: "UI and Mobile Apps"
     },
     {
         appId: 4,
@@ -71,6 +76,8 @@ export const navbarContent = writable([
         appLink: null,
         urlGitHub: null,
         virtualDeviceLink: null,
+        type: "About Me"
+
     },
     {
         appId: 6,
@@ -84,6 +91,7 @@ export const navbarContent = writable([
         virtualDeviceLink: "https://foodordering16.netlify.app/",
         appLink: null,
         urlGitHub: "https://github.com/MayoSR/FoodRepository",
+        type: "UI and Mobile Apps"
 
     },
     {
@@ -98,6 +106,7 @@ export const navbarContent = writable([
         appLink: null,
         urlGitHub: "https://github.com/MayoSR/MovieChoice",
         virtualDeviceLink: null,
+        type: "Machine Learning and Data Science"
     },
     {
         appId: 8,
@@ -111,19 +120,22 @@ export const navbarContent = writable([
         appLink: null,
         urlGitHub: null,
         virtualDeviceLink: null,
+        disableSize: true,
+        type: "About Me"
     },
     {
         appId: 9,
-        appName: "HTML Wireframe Converter",
-        icon: "/icons/wireframe",
-        appExe: "HTMLWireframeConverter",
+        appName: "Emergency App",
+        icon: "/icons/emergency",
+        appExe: "EmergencyApp",
         status: 0,
         appWindowStatus: 0,
         fullScreen: 0,
         visibleOnDesktop: true,
         appLink: null,
-        urlGitHub: null,
-        virtualDeviceLink: null,
+        urlGitHub: "https://github.com/MayoSR/EmergencyApp",
+        virtualDeviceLink: "https://emergencyapp16.netlify.app",
+        type: "UI and Mobile Apps"
     },
     {
         appId: 10,
@@ -137,6 +149,7 @@ export const navbarContent = writable([
         appLink: null,
         urlGitHub: "https://github.com/MayoSR/connect4",
         virtualDeviceLink: null,
+        type: "Games"
     },
     {
         appId: 11,
@@ -150,6 +163,8 @@ export const navbarContent = writable([
         appLink: null,
         urlGitHub: null,
         virtualDeviceLink: null,
+        disableSize: true,
+        type: "About Me"
     },
     {
         appId: 12,
@@ -163,6 +178,7 @@ export const navbarContent = writable([
         appLink: null,
         urlGitHub: "https://github.com/MayoSR/HTML-Template-to-Website-converter/tree/master/8thSemProject",
         virtualDeviceLink: null,
+        type: "Machine Learning and Data Science"
     },
     {
         appId: 13,
@@ -176,5 +192,34 @@ export const navbarContent = writable([
         appLink: null,
         urlGitHub: null,
         virtualDeviceLink: null,
+        type: "Machine Learning and Data Science"
+    },
+    {
+        appId: 14,
+        appName: "Digital Pen Controller",
+        icon: "/icons/farming",
+        appExe: "DigiPen",
+        status: 0,
+        appWindowStatus: 0,
+        fullScreen: 0,
+        visibleOnDesktop: true,
+        appLink: null,
+        urlGitHub: null,
+        virtualDeviceLink: null,
+        type: "Machine Learning and Data Science"
+    },
+    {
+        appId: 15,
+        appName: "Programming language analysis from Stackoverflow Users",
+        icon: "/icons/farming",
+        appExe: "ProgrammingAnalysis",
+        status: 0,
+        appWindowStatus: 0,
+        fullScreen: 0,
+        visibleOnDesktop: true,
+        appLink: null,
+        urlGitHub: null,
+        virtualDeviceLink: null,
+        type: "Machine Learning and Data Science"
     },
 ]);
